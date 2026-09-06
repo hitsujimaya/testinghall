@@ -1,0 +1,32 @@
+backend:
+  name: github
+  # hitsujimaya/testinghall
+  repo: hitsujimaya/testinghall
+  branch: main
+
+media_folder: "public/images"
+public_folder: "/images"
+
+collections:
+  - name: "post"
+    label: "記事"
+    folder: "src/content/post"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "タイトル", name: "title", widget: "string" }
+      - { label: "公開日", name: "pubDate", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+      - { label: "説明文", name: "description", widget: "string", required: false }
+      - { label: "アイキャッチ画像", name: "cover", widget: "image", required: false }
+      - { label: "本文", name: "body", widget: "markdown" }
+
+  - name: "settings"
+    label: "プロフィール設定"
+    files:
+      - name: "profile"
+        label: "著者プロフィール"
+        file: "src/content/profile/author.json"
+        fields:
+          - { label: "名前", name: "name", widget: "string" }
+          - { label: "アバター画像", name: "avatar", widget: "image", required: false }
+          - { label: "自己紹介文", name: "bio", widget: "text" }

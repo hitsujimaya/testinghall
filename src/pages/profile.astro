@@ -1,0 +1,11 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import author from '../content/profile/author.json';
+---
+<BaseLayout title="プロフィール">
+  <div class="profile-card">
+    {author.avatar && <img src={author.avatar} alt={author.name} class="avatar" />}
+    <h1>{author.name}</h1>
+    <p style="white-space: pre-wrap;">{author.bio}</p>
+  </div>
+</BaseLayout>

@@ -1,0 +1,22 @@
+---
+interface Props {
+  page: any;
+}
+
+const { page } = Astro.props;
+---
+<nav class="pagination">
+  {page.url.prev && <a href={page.url.prev}>&laquo; 前へ</a>}
+  
+  {Array.from({ length: page.lastPage }, (_, i) => i + 1).map((num) => {
+    const targetUrl = num === 1 ? '/' : `/page/${num}`;
+    const isCurrent = page.currentPage === num;
+    return isCurrent ? (
+      <span class="current">{num}</span>
+    ) : (
+      <a href={targetUrl}>{num}</a>
+    );
+  })}
+
+  {page.url.next && <a href={page.url.next}>次へ &raquo;</a>}
+</nav>

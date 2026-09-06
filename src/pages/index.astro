@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Pagination from '../components/Pagination.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('post')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+// 1ページあたりの表示件数（必要に応じて変更可能）
+const pageSize = 5;
+const paginatedPosts = posts.slice(0, pageSize);
+const totalPages = Math.ceil(posts.length / pageSize) || 1;
+
+const pageState = {
+  currentPage: 1,
+  lastPage: totalPages,
+  url: {
+    prev: undefined,
+    next: totalPages > 1 ? '/page/2' : undefined,
+  },
+};
+---
+<BaseLayout title="ホーム">
+  <h1>記事一覧</h1>
+  <ul class="post-list">
+    {paginatedPosts.map((post) => (
+      <li>
+        <time>{post.data.pubDate.toISOString().slice(0, 10)}</time>
+        <a href={`/posts/${post.id}`}>{post.data.title}</a>
+      </li>
+    ))}
+  </ul>
+  <Pagination page={pageState} />
+</BaseLayout>
