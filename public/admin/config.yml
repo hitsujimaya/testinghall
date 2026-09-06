@@ -1,6 +1,5 @@
 backend:
   name: github
-  # hitsujimaya/testinghall
   repo: hitsujimaya/testinghall
   branch: main
 
